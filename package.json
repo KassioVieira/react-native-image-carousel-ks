@@ -1,0 +1,29 @@
+{
+  "name": "react-native-image-carousel-ks",
+  "version": "0.0.2",
+  "description": "pacote para criação de carousel de imagens no react-native",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "react-component",
+    "react-native-component",
+    "react",
+    "react native",
+    "mobile",
+    "ios",
+    "android",
+    "ui",
+    "carousel"
+  ],
+  "author": "Kássio Luz",
+  "license": "ISC",
+  "dependencies": {
+    "proptypes": "^1.1.0"
+  },
+  "devDependencies": {
+    "metro-react-native-babel-preset": "^0.54.0"
+  }
+}
