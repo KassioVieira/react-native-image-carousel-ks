@@ -9,6 +9,8 @@ import {
   ScrollView
 } from "react-native";
 
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+
 class Slide extends Component {
   state = {
     current: 0,
@@ -35,12 +37,36 @@ class Slide extends Component {
     this.setState({ current: index });
   };
 
+  proximo = () => {
+    const { current } = this.state;
+    const { img } = this.props;
+    const amount = img.length;
+
+    if (current === amount - 1) {
+      this.next(0);
+    } else {
+      this.next(current + 1);
+    }
+  };
+
+  anterior = () => {
+    const { current } = this.state;
+    const { img } = this.props;
+    const amount = img.length;
+
+    if (current === 0) {
+      this.next(amount - 1);
+    } else {
+      this.next(current - 1);
+    }
+  };
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
   render() {
-    const { img } = this.props;
+    const { img, arrow } = this.props;
     console.log(img);
 
     return (
@@ -67,6 +93,17 @@ class Slide extends Component {
             );
           })}
         </ScrollView>
+        {arrow && (
+          <View style={styles.directions}>
+            <TouchableOpacity onPress={() => this.anterior()}>
+              <Icon name="chevron-left" color="white" size={50} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.proximo()}>
+              <Icon name="chevron-right" color="white" size={50} />
+            </TouchableOpacity>
+          </View>
+        )}
+
         <View style={styles.row}>
           {img.map((image, index) => {
             return (
@@ -92,6 +129,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+
+  directions: {
+    position: "absolute",
+    zIndex: 10,
+    height: 100,
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
   },
 
   row: {
