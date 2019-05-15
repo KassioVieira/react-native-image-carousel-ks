@@ -1,6 +1,6 @@
 {
   "name": "react-native-image-carousel-ks",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Componente React-Native para renderização de carousel de imagens de forma simples",
   "main": "index.js",
   "scripts": {
