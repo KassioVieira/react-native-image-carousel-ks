@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import {
   View,
   Image,
@@ -61,12 +60,29 @@ class Slide extends Component {
     }
   };
 
+  selecteStyleIndicator = circle => {
+    if (circle) {
+      return styles.circleIndicator;
+    }
+
+    if (!circle) {
+      return styles.indicator;
+    }
+  };
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
   render() {
-    const { img, arrow } = this.props;
+    const {
+      img,
+      arrow,
+      showIndicator,
+      circleIndicator,
+      indicatorColor,
+      indicatorSelectedColor
+    } = this.props;
     console.log(img);
 
     return (
@@ -75,7 +91,7 @@ class Slide extends Component {
           ref="_scrollView"
           horizontal
           showsHorizontalScrollIndicator={false}
-          onScroll={event => {
+          onScrollEndDrag={event => {
             this.setState({
               current: Math.floor(
                 event.nativeEvent.contentOffset.x / this.state.width
@@ -104,21 +120,30 @@ class Slide extends Component {
           </View>
         )}
 
-        <View style={styles.row}>
-          {img.map((image, index) => {
-            return (
-              <TouchableOpacity
-                key={`indicator${index}`}
-                style={
-                  index === this.state.current
-                    ? styles.indicatorSelected
-                    : styles.indicator
-                }
-                onPress={() => this.next(index)}
-              />
-            );
-          })}
-        </View>
+        {showIndicator && (
+          <View style={styles.row}>
+            {img.map((image, index) => {
+              return (
+                <TouchableOpacity
+                  key={`indicator${index}`}
+                  style={[
+                    [
+                      index === this.state.current
+                        ? this.selecteStyleIndicator(circleIndicator)
+                        : this.selecteStyleIndicator(circleIndicator)
+                    ],
+                    [
+                      index === this.state.current
+                        ? setIndicatorColor(indicatorSelectedColor)
+                        : setIndicatorColor(indicatorColor)
+                    ]
+                  ]}
+                  onPress={() => this.next(index)}
+                />
+              );
+            })}
+          </View>
+        )}
       </View>
     );
   }
@@ -158,16 +183,29 @@ const styles = StyleSheet.create({
     margin: 3,
     width: 24.75,
     height: 10.15,
-    borderRadius: 3.17,
-    backgroundColor: "#CCCCCC"
+    borderRadius: 3.17
   },
 
-  indicatorSelected: {
-    width: 24.75,
-    height: 10.15,
-    borderRadius: 3.17,
-    backgroundColor: "white"
+  circleIndicator: {
+    margin: 3,
+    width: 12,
+    height: 12,
+    borderRadius: 6
   }
 });
+
+Slide.defaultProps = {
+  indicatorColor: "#FFFFFF",
+  indicatorSelectedColor: "#5C6270",
+  showIndicator: true,
+  circleIndicator: true,
+  arrow: true
+};
+
+const setIndicatorColor = color => {
+  return {
+    backgroundColor: color
+  };
+};
 
 export default Slide;
