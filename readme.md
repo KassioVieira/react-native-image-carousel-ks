@@ -60,5 +60,18 @@ Example with arrow
   />
 ...
 ```
+
 ### Result
+
 ![alt text](./example/image/two.png "Logo Title Text 1")
+
+# Props
+
+| Property                 |  Type  | isRequired? | Default |
+| ------------------------ | :----: | :---------: | :-----: |
+| `img`                    |  bool  |  required   |    -    |
+| `indicatorColor`         | string |  optional   | #FFFFFF |
+| `indicatorSelectedColor` | string |  optional   | #5C6270 |
+| `arrow`                  |  bool  |  optional   |  false  |
+| `showIndicator`          |  bool  |  optional   |  true   |
+| `circleIndicator`        |  bool  |  optional   |  true   |
